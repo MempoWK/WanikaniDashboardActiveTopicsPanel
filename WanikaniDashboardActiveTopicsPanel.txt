@@ -1,0 +1,47 @@
+// ==UserScript==
+// @name        Wanikani Dashboard Active Topics Panel
+// @namespace   mempo
+// @description Active Topics Panel for your dashboard
+// @include     https://www.wanikani.com/dashboard
+// @include     https://www.wanikani.com/
+// @version     1.0
+// @grant       none
+// ==/UserScript==
+
+console.log('started Wanikani Dashboard Active Topics Panel');
+
+/////////////////////////////////
+//PREPARATION BEFORE LOADING
+/////////////////////////////////
+
+$(".blog").css('background-color', "#D5D5D5");
+$( ".blog table").css('visibility', 'hidden');
+a = $(".blog .see-more a");
+a.html("Visit the user panel...");
+a.attr("href","https://www.wanikani.com/community/panel/");
+var i = $(".blog .heading-symbol i");
+i.removeClass();
+i.addClass("icon-comments-alt");
+$( ".blog h3" ).html(function(i,oldhtml){return oldhtml.slice(0, oldhtml.indexOf('WaniKani News')) + "Topics Active In" });
+
+/////////////////////////////
+//LOAD PARTIAL USER PANEL
+/////////////////////////////
+
+$( ".blog table" ).load( "https://www.wanikani.com/community/panel #active-topics table", function(){ 
+    $( ".blog table>table" ).unwrap();
+    $( ".blog table thead" ).remove();
+    $( ".blog table tbody tr" ).unwrap();
+    $( ".blog table>tr>td:nth-child(2)" ).remove();
+    $( ".blog table>tr>td:nth-child(2)" ).remove();
+    $( ".blog table .description" ).html(function(i,oldhtml){return oldhtml.slice(0, oldhtml.indexOf('<br>')) });
+    $(".blog table td").css('padding', '15px');
+    $(".blog table td:first-child").css('padding-left', '30px');
+    var a = $(".blog table a");
+    a.css('display', 'inline');
+    a.css('padding', '0');
+    $(".dashboard section.blog table td:first-child a:first-child").after('<br>');
+    $(".dashboard section.blog table tr").after('<tr><td colspan="2"><hr></td></tr>');
+    $(".dashboard section.blog table tr:last-child").remove();
+    $( ".blog table").css('visibility', 'visible');
+});
