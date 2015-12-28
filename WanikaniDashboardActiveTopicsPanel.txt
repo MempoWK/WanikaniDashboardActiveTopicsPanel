@@ -4,7 +4,7 @@
 // @description Active Topics Panel for your dashboard
 // @include     https://www.wanikani.com/dashboard
 // @include     https://www.wanikani.com/
-// @version     1.0
+// @version     1.1
 // @grant       none
 // ==/UserScript==
 
@@ -44,4 +44,8 @@ $( ".blog table" ).load( "https://www.wanikani.com/community/panel #active-topic
     $(".dashboard section.blog table tr").after('<tr><td colspan="2"><hr></td></tr>');
     $(".dashboard section.blog table tr:last-child").remove();
     $( ".blog table").css('visibility', 'visible');
+    
+    var blog = $(".blog");
+    blog.removeClass();
+    blog.addClass("forum-topics-list dashboard-sub-section");
 });
